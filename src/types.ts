@@ -1,4 +1,4 @@
-import { DataSources } from 'schema/datasources'
+import { DataSources } from './schema/datasources'
 export type ID = string
 
 export type Context = {
