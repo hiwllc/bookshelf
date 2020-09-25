@@ -1,0 +1,17 @@
+import { DataSources } from 'schema/datasources'
+export type ID = string
+
+export type Context = {
+  dataSources: DataSources
+}
+
+export type ResolverFn = (source: any, args: any, context: Context) => any
+
+type ResolverMap = {
+  [field: string]: ResolverFn
+}
+
+export interface Resolvers {
+  Query?: ResolverMap
+  Mutation?: ResolverMap
+}
