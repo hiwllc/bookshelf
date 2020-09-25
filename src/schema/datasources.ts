@@ -1,7 +1,12 @@
 import { DataSources as GraphQLDatasources } from 'apollo-server-core/dist/graphqlOptions'
+import { DataSource as AuthorDataSource } from '../modules/authors'
 
-export interface DataSources {}
+export interface DataSources {
+  Author: typeof AuthorDataSource
+}
 
 export function dataSources() {
-  return {} as GraphQLDatasources<DataSources>
+  return {
+    Author: AuthorDataSource,
+  } as GraphQLDatasources<DataSources>
 }

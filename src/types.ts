@@ -11,7 +11,12 @@ type ResolverMap = {
   [field: string]: ResolverFn
 }
 
-export interface Resolvers {
-  Query?: ResolverMap
-  Mutation?: ResolverMap
+export interface Resolvers<
+  QueryType = ResolverMap,
+  MutationType = ResolverMap,
+  ResolverType = ResolverMap
+> {
+  Query?: QueryType
+  Mutation?: MutationType
+  Author?: ResolverType
 }
