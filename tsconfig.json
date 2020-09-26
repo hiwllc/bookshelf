@@ -17,12 +17,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
-    "baseUrl": "src",
-    "paths": {
-      "@types": ["src/types.ts"],
-      "@schema": ["src/schema/*"],
-      "@modules": ["src/modules/*"]
-    }
+    "baseUrl": "./",
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]
