@@ -1,5 +1,5 @@
 import { DataSources } from './schema/datasources'
-export type ID = string
+export type ID = string | undefined
 
 export type Context = {
   dataSources: DataSources

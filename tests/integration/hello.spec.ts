@@ -1,8 +1,5 @@
-import { createTestClient } from 'apollo-server-testing'
-import { server } from '../../src/server'
+import { query } from '../../.jest/setup'
 import { HelloData } from '../../src/schema/root'
-
-const { query } = createTestClient(server)
 
 test('should get hello world', async () => {
   const { data } = (await query({
