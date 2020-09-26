@@ -6,5 +6,5 @@ export const authors: Author[] = [
   { id: '3', name: 'Bram Stoker' },
   { id: '4', name: 'Isaac Asimov' },
   { id: '5', name: 'Geroge R. R. Martin' },
-  { id: '5', name: 'Cornelia Funke' },
+  { id: '6', name: 'Cornelia Funke' },
 ]

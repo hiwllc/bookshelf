@@ -1,3 +1,4 @@
+import { fromGlobalID } from '../../node'
 import { ID } from '../../types'
 import { books } from './data'
 
@@ -12,7 +13,8 @@ export function load(bid: ID) {
 export function loader(query?: LoaderQuery) {
   // this query is called in author.books
   if (query?.author) {
-    return books.filter((book) => book.author === query.author)
+    const [id] = fromGlobalID(query.author)
+    return books.filter((book) => book.author === id)
   }
 
   return books
