@@ -1,4 +1,6 @@
 import { gql, IResolvers } from 'apollo-server'
+import { fromGlobalID } from '../node'
+
 import {
   schema as AuthorTypes,
   resolvers as AuthorResolvers,
@@ -8,23 +10,31 @@ import {
   resolvers as BookResolvers,
 } from '../modules/books'
 
-export interface HelloData {
-  data: {
-    hello: string
-  }
-}
-
 const types = gql`
+  interface Node {
+    id: ID!
+  }
+
   type Query {
-    hello: String
+    node(id: ID!): Node
   }
 `
 
 export const typeDefs = [types, AuthorTypes, BookTypes]
 
 export const resolvers: IResolvers = {
+  Node: {
+    __resolveType(type: Record<string, unknown>) {
+      // this needs to resolve the TypeName
+      return type.constructor.name
+    },
+  },
+
   Query: {
-    hello: () => `Hello World!`,
+    node: (_source, { id }, { dataSources }) => {
+      const [node, typename] = fromGlobalID(id)
+      return dataSources[typename].load(node)
+    },
 
     ...AuthorResolvers.Query,
     ...BookResolvers.Query,
