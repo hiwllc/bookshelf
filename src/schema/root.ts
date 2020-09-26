@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server'
+import { gql, IResolvers } from 'apollo-server'
 import {
   schema as AuthorTypes,
   resolvers as AuthorResolvers,
@@ -22,11 +22,15 @@ const types = gql`
 
 export const typeDefs = [types, AuthorTypes, BookTypes]
 
-export const resolvers = {
+export const resolvers: IResolvers = {
   Query: {
     hello: () => `Hello World!`,
 
     ...AuthorResolvers.Query,
     ...BookResolvers.Query,
+  },
+
+  Author: {
+    ...AuthorResolvers.Author,
   },
 }

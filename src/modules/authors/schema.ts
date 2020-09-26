@@ -4,6 +4,7 @@ export const schema = gql`
   type Author {
     id: ID
     name: String
+    books: [Book]
   }
 
   extend type Query {
