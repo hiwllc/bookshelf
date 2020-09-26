@@ -1,5 +1,19 @@
 import { query } from '../../.jest/setup'
 
+test('should return null', async () => {
+  const { data } = await query({
+    query: `
+      query {
+        author(id: "10101") {
+          name
+        }
+      }
+    `,
+  })
+
+  expect(data?.author).toBeNull()
+})
+
 test('should get author', async () => {
   const { data } = await query({
     query: `
