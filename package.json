@@ -1,7 +1,9 @@
 {
   "main": "dist/index.js",
   "scripts": {
+    "start": "node .",
     "dev": "nodemon src/index.ts --exec ts-node",
+    "build": "tsc",
     "lint": "eslint src",
     "test": "jest"
   },
