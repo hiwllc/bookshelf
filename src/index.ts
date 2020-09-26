@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
 import { server } from './server'
 
-server.listen(4000)
+dotenv.config()
+
+server.listen(process.env.PORT)
