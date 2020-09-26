@@ -1,14 +1,7 @@
-import { Context, Resolvers } from '../../types'
-import { Book } from '../books/types'
+import { Resolvers } from '../../types'
 import { Author } from './types'
 
-export interface AuthorResolvers extends Resolvers {
-  Author: {
-    books: (source: Author, args: any, context: Context) => Book[]
-  }
-}
-
-export const resolvers: AuthorResolvers = {
+export const resolvers: Resolvers = {
   Query: {
     author: (_source, { id }: Author, { dataSources }) => {
       return dataSources.Author.load(id)
@@ -19,8 +12,8 @@ export const resolvers: AuthorResolvers = {
   },
 
   Author: {
-    books: ({ id }, _args, { dataSources }) => {
-      return dataSources.Book.loader({ author: id })
+    books: (author: Author, _args, { dataSources }) => {
+      return dataSources.Book.loader({ author: author.id })
     },
   },
 }
