@@ -19,4 +19,5 @@ export interface Resolvers<
   Query?: QueryType
   Mutation?: MutationType
   Author?: ResolverType
+  Book?: ResolverType
 }

@@ -3,6 +3,10 @@ import {
   schema as AuthorTypes,
   resolvers as AuthorResolvers,
 } from '../modules/authors'
+import {
+  schema as BookTypes,
+  resolvers as BookResolvers,
+} from '../modules/books'
 
 export interface HelloData {
   data: {
@@ -16,12 +20,13 @@ const types = gql`
   }
 `
 
-export const typeDefs = [types, AuthorTypes]
+export const typeDefs = [types, AuthorTypes, BookTypes]
 
 export const resolvers = {
   Query: {
     hello: () => `Hello World!`,
 
     ...AuthorResolvers.Query,
+    ...BookResolvers.Query,
   },
 }
