@@ -6,4 +6,7 @@ export const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources,
+  // enable graphql playgroun in production
+  introspection: true,
+  playground: true,
 })
