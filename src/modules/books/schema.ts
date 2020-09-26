@@ -1,8 +1,8 @@
 import { gql } from 'apollo-server'
 
 export const schema = gql`
-  type Book {
-    id: ID
+  type Book implements Node {
+    id: ID!
     title: String
     author: Author
   }
