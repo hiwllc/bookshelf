@@ -33,4 +33,8 @@ export const resolvers: IResolvers = {
   Author: {
     ...AuthorResolvers.Author,
   },
+
+  Book: {
+    ...BookResolvers.Book,
+  },
 }

@@ -10,4 +10,10 @@ export const resolvers: Resolvers = {
       return dataSources.Book.loader()
     },
   },
+
+  Book: {
+    author: (book: Book, _args, { dataSources }) => {
+      return dataSources.Author.load(book?.author)
+    },
+  },
 }
