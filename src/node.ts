@@ -1,7 +1,7 @@
-export function globalID(node: any, source: string) {
-  const id = Buffer.from(`${node.id}:${source}`, 'utf-8').toString('base64')
-
-  return { ...node, id }
+export function globalID(node: any, source: any) {
+  return Buffer.from(`${node}:${source.constructor.name}`, 'utf-8').toString(
+    'base64'
+  )
 }
 
 export function fromGlobalID(node: string) {
