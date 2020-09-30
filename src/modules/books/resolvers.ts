@@ -1,5 +1,5 @@
 import { Resolvers } from '../../types'
-import { Book } from './types'
+import { Book, CreateBook } from './types'
 
 export const resolvers: Resolvers = {
   Query: {
@@ -14,6 +14,12 @@ export const resolvers: Resolvers = {
   Book: {
     author: (book: Book, _args, { dataSources }) => {
       return dataSources.Author.load(book?.author)
+    },
+  },
+
+  Mutation: {
+    createBook: (_source, args: { input: CreateBook }, { dataSources }) => {
+      return dataSources.Book.create(args.input)
     },
   },
 }

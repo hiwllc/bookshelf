@@ -46,6 +46,7 @@ export const resolvers: IResolvers = {
 
   Mutation: {
     ...AuthorResolvers.Mutation,
+    ...BookResolvers.Mutation,
   },
 
   Author: {

@@ -1,7 +1,7 @@
 import { fromGlobalID } from '../../node'
 import { ID } from '../../types'
 import { books } from './data'
-import { Book } from './types'
+import { Book, CreateBook } from './types'
 
 interface LoaderQuery {
   author?: ID
@@ -27,4 +27,9 @@ export function loader(query?: LoaderQuery) {
   }
 
   return books.map((book) => new Book(book))
+}
+
+export function create(book: CreateBook) {
+  const id = Number(books[books.length - 1].id) + 1
+  return new Book({ ...book, id: id.toString() })
 }

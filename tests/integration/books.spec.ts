@@ -1,4 +1,4 @@
-import { query } from '../../.jest/setup'
+import { query, mutate } from '../../.jest/setup'
 
 test('should return null', async () => {
   const { data } = await query({
@@ -50,4 +50,28 @@ test('should fetch author from book', async () => {
       }),
     ])
   )
+})
+
+test('should create new book', async () => {
+  const { data } = await mutate({
+    mutation: `
+      mutation createBook($input: BookInput!) {
+        createBook(input: $input) {
+          title
+          author {
+            name
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        title: 'O Cavaleiro dos sete reinos',
+        author: '5',
+      },
+    },
+  })
+
+  expect(data?.createBook?.title).toBe('O Cavaleiro dos sete reinos')
+  expect(data?.createBook?.author?.name).toBe('Geroge R. R. Martin')
 })

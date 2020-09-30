@@ -12,3 +12,5 @@ export class Book {
     this.author = book.author
   }
 }
+
+export type CreateBook = Omit<Book, 'id'>
