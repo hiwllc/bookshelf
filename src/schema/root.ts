@@ -18,6 +18,10 @@ const types = gql`
   type Query {
     node(id: ID!): Node
   }
+
+  type Mutation {
+    _root: String
+  }
 `
 
 export const typeDefs = [types, AuthorTypes, BookTypes]
@@ -38,6 +42,10 @@ export const resolvers: IResolvers = {
 
     ...AuthorResolvers.Query,
     ...BookResolvers.Query,
+  },
+
+  Mutation: {
+    ...AuthorResolvers.Mutation,
   },
 
   Author: {

@@ -11,4 +11,12 @@ export const schema = gql`
     author(id: ID!): Author
     authors: [Author]
   }
+
+  input AuthorInput {
+    name: String
+  }
+
+  extend type Mutation {
+    createAuthor(input: AuthorInput!): Author
+  }
 `

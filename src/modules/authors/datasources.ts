@@ -1,6 +1,6 @@
 import { ID } from '../../types'
 import { authors } from './data'
-import { Author } from './types'
+import { Author, CreateAuthor } from './types'
 
 export function load(aid: ID) {
   const author = authors.find((author) => author.id === aid)
@@ -14,4 +14,9 @@ export function load(aid: ID) {
 
 export function loader() {
   return authors.map((author) => new Author(author))
+}
+
+export function create(author: CreateAuthor) {
+  const id = Number(authors[authors.length - 1].id) + 1
+  return new Author({ ...author, id: id.toString() })
 }
