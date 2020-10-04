@@ -1,5 +1,5 @@
 import { gql, IResolvers } from 'apollo-server'
-import { fromGlobalID } from '../node'
+import { fromGlobalID } from '../resolve-patterns'
 
 import {
   schema as AuthorTypes,
@@ -35,9 +35,9 @@ export const resolvers: IResolvers = {
   },
 
   Query: {
-    node: (_source, { id }, { dataSources }) => {
-      const [node, typename] = fromGlobalID(id)
-      return dataSources[typename].load(node)
+    node: (_source, { id: nodeid }, { dataSources }) => {
+      const { id, type } = fromGlobalID(nodeid)
+      return dataSources[type].load(id)
     },
 
     ...AuthorResolvers.Query,
