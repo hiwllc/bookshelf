@@ -1,5 +1,4 @@
-import { fromGlobalID } from '../../node'
-import { ID } from '../../types'
+import { fromGlobalID, ID } from '../../resolve-patterns'
 import { books } from './data'
 import { Book, CreateBook } from './types'
 
@@ -20,7 +19,7 @@ export function load(bid: ID) {
 export function loader(query?: LoaderQuery) {
   // this query is called in author.books
   if (query?.author) {
-    const [id] = fromGlobalID(query.author)
+    const { id } = fromGlobalID(query.author)
     return books
       .filter((book) => book.author === id)
       .map((book) => new Book(book))

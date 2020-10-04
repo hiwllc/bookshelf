@@ -1,52 +1,32 @@
 import { query, mutate } from '../../.jest/setup'
 
-test('should return null', async () => {
-  const { data } = await query({
-    query: `
-      query {
-        book(id: "10101") {
-          title
-        }
-      }
-    `,
-  })
-
-  expect(data?.book).toBeNull()
-})
-
-test('should get book', async () => {
-  const { data } = await query({
-    query: `
-      query {
-        book(id: "2") {
-          title
-        }
-      }
-    `,
-  })
-
-  expect(data?.book?.title).toBe('O Guia do Mochileiro da Galáxia')
-})
-
 test('should fetch author from book', async () => {
   const { data } = await query({
     query: `
       query {
         books {
-          title
-          author {
-            name
+          edges {
+            node {
+              title
+              author {
+                node {
+                  name
+                }
+              }
+            }
           }
         }
       }
     `,
   })
 
-  expect(data?.books).toEqual(
+  expect(data?.books?.edges).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        title: 'O Guia do Mochileiro da Galáxia',
-        author: { name: 'Douglas Adam' },
+        node: {
+          title: 'O Guia do Mochileiro da Galáxia',
+          author: { node: { name: 'Douglas Adam' } },
+        },
       }),
     ])
   )
@@ -55,11 +35,15 @@ test('should fetch author from book', async () => {
 test('should create new book', async () => {
   const { data } = await mutate({
     mutation: `
-      mutation createBook($input: BookInput!) {
+      mutation createBook($input: createBookInput!) {
         createBook(input: $input) {
-          title
-          author {
-            name
+          book {
+            title
+            author {
+              node {
+                name
+              }
+            }
           }
         }
       }
@@ -67,11 +51,11 @@ test('should create new book', async () => {
     variables: {
       input: {
         title: 'O Cavaleiro dos sete reinos',
-        author: '5',
+        author: 'NTpBdXRob3I=',
       },
     },
   })
 
-  expect(data?.createBook?.title).toBe('O Cavaleiro dos sete reinos')
-  expect(data?.createBook?.author?.name).toBe('Geroge R. R. Martin')
+  expect(data?.createBook?.book.title).toBe('O Cavaleiro dos sete reinos')
+  expect(data?.createBook?.book.author.node.name).toBe('Geroge R. R. Martin')
 })

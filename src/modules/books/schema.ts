@@ -4,20 +4,33 @@ export const schema = gql`
   type Book implements Node {
     id: ID!
     title: String
-    author: Author
+    author: AuthorEdge
+  }
+
+  type BookEdge {
+    node: Book
+  }
+
+  type BookConnection {
+    edges: [BookEdge]
   }
 
   extend type Query {
-    book(id: ID!): Book
-    books: [Book]
+    books: BookConnection
   }
 
-  input BookInput {
-    title: String
-    author: ID
+  input createBookInput {
+    title: String!
+    author: ID!
+    clientMutationId: String
+  }
+
+  type BookPaylod {
+    book: Book
+    clientMutationId: String
   }
 
   extend type Mutation {
-    createBook(input: BookInput!): Book
+    createBook(input: createBookInput!): BookPaylod
   }
 `

@@ -1,25 +1,27 @@
 import { Resolvers } from '../../types'
 import { Book, CreateBook } from './types'
+import {
+  resolveNodeFromArray,
+  resolveConnectionFromArray,
+  mutateAndGetPayload,
+} from '../../resolve-patterns'
 
 export const resolvers: Resolvers = {
   Query: {
-    book: (_source, { id }: Book, { dataSources }) => {
-      return dataSources.Book.load(id)
-    },
     books: (_source, _args, { dataSources }) => {
-      return dataSources.Book.loader()
+      return resolveConnectionFromArray(dataSources.Book.loader)
     },
   },
 
   Book: {
     author: (book: Book, _args, { dataSources }) => {
-      return dataSources.Author.load(book?.author)
+      return resolveNodeFromArray(dataSources.Author.load, book.author)
     },
   },
 
   Mutation: {
     createBook: (_source, args: { input: CreateBook }, { dataSources }) => {
-      return dataSources.Book.create(args.input)
+      return mutateAndGetPayload(dataSources.Book.create, args.input)
     },
   },
 }

@@ -1,10 +1,9 @@
-import { ID } from '../../types'
-import { globalID } from '../../node'
+import { ID, globalID } from '../../resolve-patterns'
 
 export class Book {
   id: ID
   title: string
-  author?: ID
+  author: ID
 
   constructor(book: Book) {
     this.id = globalID(book.id, this)
@@ -13,4 +12,6 @@ export class Book {
   }
 }
 
-export type CreateBook = Omit<Book, 'id'>
+export interface CreateBook extends Omit<Book, 'id'> {
+  clientMutationId?: string
+}
