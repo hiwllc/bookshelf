@@ -8,6 +8,7 @@ export const schema = gql`
   }
 
   type BookEdge {
+    cursor: String
     node: Book
   }
 
@@ -16,7 +17,11 @@ export const schema = gql`
   }
 
   extend type Query {
-    books: BookConnection
+    # after pega todos depois de after
+    # first pega os primeiros X da lista
+    # before pega todos antes
+    # last pega os ultimes X da lista
+    books(after: String, first: Int, before: String, last: Int): BookConnection
   }
 
   input createBookInput {

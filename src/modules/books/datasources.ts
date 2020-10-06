@@ -1,8 +1,8 @@
-import { fromGlobalID, ID } from '../../resolve-patterns'
+import { fromGlobalID, ID, ArgumentsQuery } from '../../resolve-patterns'
 import { books } from './data'
 import { Book, CreateBook } from './types'
 
-interface LoaderQuery {
+interface LoaderQuery extends ArgumentsQuery {
   author?: ID
 }
 
@@ -20,6 +20,7 @@ export function loader(query?: LoaderQuery) {
   // this query is called in author.books
   if (query?.author) {
     const { id } = fromGlobalID(query.author)
+
     return books
       .filter((book) => book.author === id)
       .map((book) => new Book(book))

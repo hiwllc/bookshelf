@@ -8,8 +8,8 @@ import {
 
 export const resolvers: Resolvers = {
   Query: {
-    books: (_source, _args, { dataSources }) => {
-      return resolveConnectionFromArray(dataSources.Book.loader)
+    books: (_source, args, { dataSources }) => {
+      return resolveConnectionFromArray(dataSources.Book.loader, args)
     },
   },
 

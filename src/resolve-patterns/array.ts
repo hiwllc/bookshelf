@@ -16,13 +16,42 @@ export function resolveNodeFromArray<NodeType>(
   return nodeFormatter(node)
 }
 
-export function resolveConnectionFromArray<NodeType, QueryType>(
-  resolver: (query?: QueryType) => Array<NodeType>,
-  query?: QueryType
-) {
+export type ArgumentsQuery = {
+  first?: number
+  last?: number
+  after?: string
+  before?: string
+  [key: string]: unknown
+}
+
+export function resolveConnectionFromArray<
+  NodeType,
+  QueryType extends ArgumentsQuery
+>(resolver: (query?: QueryType) => Array<NodeType>, query?: QueryType) {
   const nodes = resolver(query)
 
-  return { edges: nodes.map(nodeFormatter) }
+  // @TODO create after and before indexes
+
+  const afterOffeset = 0
+  const beforeOffeset = nodes.length
+
+  const sliceStart = 0
+  const sliceEnd = nodes.length
+
+  let startOffset = Math.max(sliceStart - 1, afterOffeset, -1)
+  let endOffset = Math.min(sliceEnd, beforeOffeset, nodes.length)
+
+  if (query?.first) {
+    endOffset = Math.min(endOffset, startOffset + query.first)
+  }
+
+  if (query?.last) {
+    startOffset = Math.max(startOffset, endOffset - query.last)
+  }
+
+  const edges = nodes.slice(startOffset, endOffset).map(nodeFormatter)
+
+  return { edges }
 }
 
 type WithConstructorName = {
