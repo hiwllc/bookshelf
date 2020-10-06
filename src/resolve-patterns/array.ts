@@ -24,16 +24,26 @@ export type ArgumentsQuery = {
   [key: string]: unknown
 }
 
+function getCursorOffset<T extends { id?: string }>(
+  list: T[],
+  cursor?: string,
+  defaultOffset?: number
+) {
+  if (!cursor) {
+    return typeof defaultOffset === 'number' ? defaultOffset : list.length
+  }
+
+  return list.findIndex((node) => node.id === cursor)
+}
+
 export function resolveConnectionFromArray<
   NodeType,
   QueryType extends ArgumentsQuery
 >(resolver: (query?: QueryType) => Array<NodeType>, query?: QueryType) {
   const nodes = resolver(query)
 
-  // @TODO create after and before indexes
-
-  const afterOffeset = 0
-  const beforeOffeset = nodes.length
+  const afterOffeset = getCursorOffset(nodes, query?.after, 0)
+  const beforeOffeset = getCursorOffset(nodes, query?.before)
 
   const sliceStart = 0
   const sliceEnd = nodes.length
