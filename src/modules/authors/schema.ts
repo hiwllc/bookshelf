@@ -8,6 +8,7 @@ export const schema = gql`
   }
 
   type AuthorEdge {
+    cursor: String
     node: Author
   }
 
@@ -16,7 +17,12 @@ export const schema = gql`
   }
 
   extend type Query {
-    authors: AuthorConnection
+    authors(
+      after: String
+      first: Int
+      before: String
+      last: Int
+    ): AuthorConnection
   }
 
   input createAuthorInput {

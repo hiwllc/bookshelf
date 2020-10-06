@@ -7,8 +7,8 @@ import {
 
 export const resolvers: Resolvers = {
   Query: {
-    authors: (_source, _args, { dataSources }) => {
-      return resolveConnectionFromArray(dataSources.Author.loader)
+    authors: (_source, args, { dataSources }) => {
+      return resolveConnectionFromArray(dataSources.Author.loader, args)
     },
   },
 
