@@ -4,6 +4,7 @@ import { Book, CreateBook } from './types'
 
 interface LoaderQuery extends ArgumentsQuery {
   author?: ID
+  order?: 'ASC' | 'DESC'
 }
 
 export function load(bid: ID) {
@@ -16,17 +17,36 @@ export function load(bid: ID) {
   return new Book(book)
 }
 
-export function loader(query?: LoaderQuery) {
-  // this query is called in author.books
-  if (query?.author) {
-    const { id } = fromGlobalID(query.author)
-
-    return books
-      .filter((book) => book.author === id)
-      .map((book) => new Book(book))
+function filterByAuthor(list: Book[], author?: string) {
+  if (!author) {
+    return list
   }
 
-  return books.map((book) => new Book(book))
+  const { id } = fromGlobalID(author)
+
+  return list.filter(({ author }) => author === id)
+}
+
+function sortBooks(list: Book[], order?: 'ASC' | 'DESC') {
+  if (!order) {
+    return list
+  }
+
+  if (order === 'ASC') {
+    return list.sort((a, b) => a.title.localeCompare(b.title))
+  }
+
+  return list.sort((a, b) => b.title.localeCompare(a.title))
+}
+
+function mapToBook(list: Book[]) {
+  return list.map((item) => new Book(item))
+}
+
+export function loader(query?: LoaderQuery) {
+  return mapToBook(
+    sortBooks(filterByAuthor(books, query?.author), query?.order)
+  )
 }
 
 export function create(book: CreateBook) {

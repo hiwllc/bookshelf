@@ -1,6 +1,11 @@
 import { gql } from 'apollo-server'
 
 export const schema = gql`
+  enum ORDER {
+    DESC
+    ASC
+  }
+
   type Book implements Node {
     id: ID!
     title: String
@@ -17,7 +22,13 @@ export const schema = gql`
   }
 
   extend type Query {
-    books(after: String, first: Int, before: String, last: Int): BookConnection
+    books(
+      after: String
+      first: Int
+      before: String
+      last: Int
+      order: ORDER
+    ): BookConnection
   }
 
   input createBookInput {
