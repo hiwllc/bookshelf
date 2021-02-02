@@ -40,6 +40,6 @@
   "dependencies": {
     "apollo-server": "^2.18.1",
     "dotenv": "^8.2.0",
-    "graphql": "^15.3.0"
+    "graphql": "^15.5.0"
   }
 }
