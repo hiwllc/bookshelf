@@ -1,0 +1,44 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.26
+    - 14.14.27
+    - 14.14.36
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: apollo-server-testing
+    versions:
+    - 2.22.1
+    - 2.22.2
+    - 2.23.0
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 8.0.0
+    - 8.2.0
+  - dependency-name: eslint
+    versions:
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: apollo-server
+    versions:
+    - 2.21.2
+    - 2.22.1
+    - 2.22.2
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.19.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.19.0
+  - dependency-name: husky
+    versions:
+    - 5.1.2
+    - 5.2.0
